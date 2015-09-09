@@ -180,7 +180,7 @@ var SkyRTC = function() {
 
         this.on('ready', function() {
             that.createPeerConnections();
-            that.addStreams();
+            // that.addStreams();
             that.addDataChannels();
             that.sendOffers();
         });

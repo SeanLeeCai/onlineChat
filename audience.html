@@ -1,13 +1,37 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="/main.css">
   <title>SkyRTC聊天室Demo</title>
+  <style type="text/css">
+  @media screen and (max-width: 700px) {
+      #chat input[type="file"],button {
+        display: none;
+      }
+    }
+  @media screen and (max-width: 400px) {
+      body,html {
+        margin: 0;
+        padding: 0;
+      }
+      #chat {
+        display: none;
+      }
+      #videos video {
+        width: 100%;
+      }
+      #videos {
+        position: static;
+        width: 100%;
+      }
+
+    }
+  </style>
 </head>
 <body>
-  <div id="chat">
+  <div id="chat" onkeydown="submitByEnter();">
     <div class="msgs" id="msgs"></div>
     <input type="file" id="fileIpt" class="fileIpt">
     <button id="sendFileBtn" class="sendFileBtn">发送文件</button>
@@ -30,16 +54,19 @@
   var rtc = SkyRTC();
 
   /**********************************************************/
-  sendBtn.onclick = function(event){
-    var msgIpt = document.getElementById("msgIpt"),
-        msg = msgIpt.value,
-        p = document.createElement("p");
-    p.innerText = "me: " + msg;
-    //广播消息
-    rtc.broadcast(msg);
-    msgIpt.value = "";
-    msgs.appendChild(p);
-  };
+  function submitByEnter(event){
+      event=event||window.event;
+      if(event.keyCode == 13) {
+      var msgIpt = document.getElementById("msgIpt"),
+          msg = msgIpt.value,
+          p = document.createElement("p");
+      p.innerText = "me: " + msg;
+      //广播消息
+      rtc.broadcast(msg);
+      msgIpt.value = "";
+      msgs.appendChild(p);
+    };
+  }
 
   sendFileBtn.onclick = function(event){
     //分享文件
@@ -112,7 +139,7 @@
   rtc.on("connected", function(socket) {
     //创建本地视频流
     rtc.createStream({
-      //"video": true,
+      // "video": true,
       //"audio": true
     });
   });
