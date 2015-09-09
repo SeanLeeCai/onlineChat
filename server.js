@@ -4,17 +4,18 @@ var server = require('http').createServer(app);
 var SkyRTC = require('skyrtc').listen(server);
 var path = require("path");
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 80;
 server.listen(port);
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/css')));
 
 app.get('/', function(req, res) {
 	res.sendfile(__dirname + '/check.html');
 });
 
 app.get('/camera', function(req, res) {
-	res.sendfile(__dirname + '/index.html');
+	res.sendfile(__dirname + '/camera.html');
 });
 
 app.get('/audience', function(req, res) {
