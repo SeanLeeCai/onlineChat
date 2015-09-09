@@ -1,79 +1,37 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/main.css">
   <title>SkyRTC聊天室Demo</title>
   <style type="text/css">
-    html, body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background-color: #f0f0f0;
+  @media screen and (max-width: 700px) {
+      #chat input[type="file"],button {
+        display: none;
+      }
     }
+  @media screen and (max-width: 400px) {
+      body,html {
+        margin: 0;
+        padding: 0;
+      }
+      #chat {
+        display: none;
+      }
+      #videos video {
+        width: 100%;
+      }
+      #videos {
+        position: static;
+        width: 100%;
+      }
 
-    #videos {
-      position: absolute;
-      left: 30%;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      overflow: auto;
-    }
-
-    #videos video {
-      display: inline-block;
-      width: 32%;
-    }
-
-    #chat {
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 30%;
-      border: 1px solid #0f0f0f;
-    }
-    #chat .msgIpt, #chat .fileIpt{
-      position: absolute;
-      left: 0;
-      width: 80%;
-    }
-    #chat .sendBtn, #chat .sendFileBtn {
-      position: absolute;
-      left: 80%;
-      width: 20%;
-    }
-    #chat .msgIpt,#chat .sendBtn {
-      bottom: 0;
-    }
-    #chat .fileIpt, #chat .sendFileBtn {
-      bottom: 30px;
-    }
-
-    #chat .msgs {
-      padding: 5%;
-    }
-    #chat .msgs p{
-      margin: 0.3em 0;
-    }
-    #files {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 20%;
-    }
-    #files .name {
-    }
-    #files .percent {
-      font-weight: bold;
-      text-decoration: none
     }
   </style>
 </head>
 <body>
-  <div id="chat">
+  <div id="chat" onkeydown="submitByEnter();">
     <div class="msgs" id="msgs"></div>
     <input type="file" id="fileIpt" class="fileIpt">
     <button id="sendFileBtn" class="sendFileBtn">发送文件</button>
@@ -86,7 +44,7 @@
   <div id="files">
   </div>
 </body>
-<script type="text/javascript" src="/SkyRTC-client.js"></script>
+<script type="text/javascript" src="/RTC-audience.js"></script>
 <script type="text/javascript">
   var videos = document.getElementById("videos");
   var sendBtn = document.getElementById("sendBtn");
@@ -96,16 +54,19 @@
   var rtc = SkyRTC();
 
   /**********************************************************/
-  sendBtn.onclick = function(event){
-    var msgIpt = document.getElementById("msgIpt"),
-        msg = msgIpt.value,
-        p = document.createElement("p");
-    p.innerText = "me: " + msg;
-    //广播消息
-    rtc.broadcast(msg);
-    msgIpt.value = "";
-    msgs.appendChild(p);
-  };
+  function submitByEnter(event){
+      event=event||window.event;
+      if(event.keyCode == 13) {
+      var msgIpt = document.getElementById("msgIpt"),
+          msg = msgIpt.value,
+          p = document.createElement("p");
+      p.innerText = "me: " + msg;
+      //广播消息
+      rtc.broadcast(msg);
+      msgIpt.value = "";
+      msgs.appendChild(p);
+    };
+  }
 
   sendFileBtn.onclick = function(event){
     //分享文件
@@ -178,7 +139,7 @@
   rtc.on("connected", function(socket) {
     //创建本地视频流
     rtc.createStream({
-      //"video": true,
+      // "video": true,
       //"audio": true
     });
   });
