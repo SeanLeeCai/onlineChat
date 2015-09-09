@@ -1,48 +1,20 @@
-#webrtc.io-demo
-==============
+#一个简单的SkyRTC示例
+---
+##简介
+这是一个使用SkyRTC和SkyRTC-client搭建浏览器中音频、视频、文字聊天室的Demo
 
-You can have a look at the [demo](http://webrtc.dennis.is/)
+##安装和使用
+1. 安装Node.js及npm环境
+2. 下载源码到本地，并解压缩
+3. 移动到解压后的目录下
+4. 使用命令`npm install`安装所需要的库
+5. 运行命令`node server.js`，建议配合`forever`
+6. 访问`localhost:3000#roomName`查看效果，其中`roomName`为进入的房间名，不同房间的用户无法互相通信
 
-##Instructions on how to setup the demo:
+##功能说明
+支持划分房间的在线音频、视频、文字聊天，提供房间内文件共享功能
 
-Run in your terminal
+##SkyRTC项目链接
+[SkyRTC项目](https://github.com/LingyuCoder/SkyRTC)
 
-```bash 
-git clone git@github.com:webRTC/webrtc.io-demo.git
-```
-
-```bash 
-cd webrtc.io-demo
-```
-
-```bash 
-npm install
-```
-
-```bash 
-cd site
-```
-
-```bash 
-node server.js
-```
-
-In a version of Chrome that have webRTC support.
-
-go to [localhost:8080](http://localhost:8080)
-
-click allow to see your camera
-
-go to [localhost:8080](http://localhost:8080)
-
-click allow to see your camera and the connection will be made between your to open windows.
-
-
-##For instructions on how to start developing with webRTC.io
-
-go to [https://github.com/webRTC/webRTC.io](https://github.com/webRTC/webRTC.io) and read the instructions.
-
-Developed by:
-    [@dennismatensson](https://github.com/dennismartensson)
-    [@cavedweller](https://github.com/cavedweller)
-    [@sarenji](https://github.com/sarenji)
+[SkyRTC-client项目](https://github.com/LingyuCoder/SkyRTC-client)
