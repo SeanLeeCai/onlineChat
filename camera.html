@@ -76,10 +76,16 @@
         var msgIpt = document.getElementById("msgIpt"),
             msg = msgIpt.value,
             p = document.createElement("p");
+        if (!msg) {
+          alert("亲，说点什么吧！");
+          return;
+        };
         p.innerHTML = "me: " + msg;
         msgs.appendChild(p);
-        alert("123");
         //广播消息
+        if(document.getElementById("chat").scrollHeight>document.body.clientHeight){
+          document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
+        }
         rtc.broadcast(msg);
         msgIpt.value = "";
         
@@ -89,8 +95,15 @@
     var msgIpt = document.getElementById("msgIpt"),
         msg = msgIpt.value,
         p = document.createElement("p");
+    if (!msg) {
+          alert("亲，说点什么吧！");
+          return;
+        };
     p.innerHTML = "me: " + msg;
     //广播消息
+    if(document.getElementById("chat").scrollHeight>document.body.clientHeight){
+      document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
+    }
     rtc.broadcast(msg);
     msgIpt.value = "";
     msgs.appendChild(p);
