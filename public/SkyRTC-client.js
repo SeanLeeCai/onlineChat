@@ -145,6 +145,7 @@ var SkyRTC = function() {
             var pc = that.createPeerConnection(data.socketId),
                 i, m;
             pc.addStream(that.localMediaStream);
+            that.sendOffers();
             that.emit('new_peer', data.socketId);
         });
 
