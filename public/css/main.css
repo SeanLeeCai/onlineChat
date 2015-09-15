@@ -8,6 +8,8 @@ html, body {
 input {
 	border: 1px solid #f60;
 	font-family: "Microsoft Yahei";
+	width: 80%;
+	float: left;
 }
 
 #videos {
@@ -27,39 +29,35 @@ input {
 	position: absolute;
 	left: 70%;
 	top: 0;
-	bottom: 5%;
+	bottom: 0;
 	right: 0;
 	overflow: auto;
 	border-left: 1px solid #f60;
 
 }
-#chat .msgIpt, #chat .fileIpt{
-	position: fixed;
-	left: 70%;
-	width: 20%;
-}
-#chat .sendBtn, #chat .sendFileBtn {
-	position: fixed;
-	left: 90%;
-	width: 10%;
-}
-#chat .msgIpt,#chat .sendBtn {
-	bottom: 0;
-}
 #chat .fileIpt, #chat .sendFileBtn {
 	bottom: 30px;
+}
+
+#sendMsg {
+	position: fixed;
+	bottom: 0;
+	width: 30%;
 }
 
 #sendBtn {
 	background-color: #f60;
 	color: white;
-	border: 0;
+	border: 1px solid #f60;
 	font-family: "Microsoft Yahei";
+	width: 18%;
+	margin: 0;
 }
 
 #chat .msgs {
 	padding: 5%;
 	font-family: "Microsoft Yahei";
+	height: 92%;
 }
 #chat .msgs p{
 	margin: 0.3em 0;
