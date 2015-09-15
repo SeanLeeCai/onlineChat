@@ -6,9 +6,22 @@
   <link rel="stylesheet" type="text/css" href="/main.css">
   <style type="text/css">
     @media screen and (max-width: 700px) {
+        body,html {
+          margin: 0;
+          height: 100%;
+        }
+        #chat {
+          display: none;
+        }
+        #videos video {
+          width: auto;
+          height: 100%;
+        }
+      }
+    @media screen and (max-width: 400px) {
       body,html {
         margin: 0;
-        padding: 0;
+        height: 100%;
       }
       #chat {
         display: none;
@@ -25,10 +38,8 @@
   <title>SkyRTC聊天室Demo</title>
 </head>
 <body>
-  <div id="chat">
+  <div id="chat" onkeydown="submitByEnter();">
     <div class="msgs" id="msgs"></div>
-    <input type="file" id="fileIpt" class="fileIpt">
-    <button id="sendFileBtn" class="sendFileBtn">发送文件</button>
     <input type="text" id="msgIpt" class="msgIpt">
     <button id="sendBtn" class="sendBtn">发送</button>
   </div>
@@ -44,7 +55,6 @@
   var videos = document.getElementById("videos");
   var sendBtn = document.getElementById("sendBtn");
   var msgs = document.getElementById("msgs");
-  var sendFileBtn = document.getElementById("sendFileBtn");
   var files = document.getElementById("files");
   var rtc = SkyRTC();
 
@@ -53,17 +63,39 @@
     var msgIpt = document.getElementById("msgIpt"),
         msg = msgIpt.value,
         p = document.createElement("p");
-    p.innerText = "me: " + msg;
+    p.innerHTML = "me: " + msg;
     //广播消息
     rtc.broadcast(msg);
     msgIpt.value = "";
     msgs.appendChild(p);
   };
 
-  sendFileBtn.onclick = function(event){
-    //分享文件
-    rtc.shareFile("fileIpt");
+  function submitByEnter(){
+      var event = window.event || arguments.callee.caller.arguments[0];
+      if(event.keyCode == 13) {
+        var msgIpt = document.getElementById("msgIpt"),
+            msg = msgIpt.value,
+            p = document.createElement("p");
+        p.innerHTML = "me: " + msg;
+        msgs.appendChild(p);
+        alert("123");
+        //广播消息
+        rtc.broadcast(msg);
+        msgIpt.value = "";
+        
+      };
+  }
+  sendBtn.onclick = function(event){
+    var msgIpt = document.getElementById("msgIpt"),
+        msg = msgIpt.value,
+        p = document.createElement("p");
+    p.innerHTML = "me: " + msg;
+    //广播消息
+    rtc.broadcast(msg);
+    msgIpt.value = "";
+    msgs.appendChild(p);
   };
+
   /**********************************************************/
 
   
@@ -71,18 +103,18 @@
   //对方同意接收文件
   rtc.on("send_file_accepted", function(sendId, socketId, file){
     var p = document.getElementById("sf-" + sendId);
-    p.innerText = "对方接收" + file.name + "文件，等待发送";
+    p.innerHTML = "对方接收" + file.name + "文件，等待发送";
 
   });
   //对方拒绝接收文件
   rtc.on("send_file_refused", function(sendId, socketId, file){
     var p = document.getElementById("sf-" + sendId);
-    p.innerText = "对方拒绝接收" + file.name + "文件";
+    p.innerHTML = "对方拒绝接收" + file.name + "文件";
   });
   //请求发送文件
   rtc.on('send_file', function(sendId, socketId, file){
     var p = document.createElement("p");
-    p.innerText = "请求发送" + file.name + "文件";
+    p.innerHTML = "请求发送" + file.name + "文件";
     p.id = "sf-" + sendId;
     files.appendChild(p);
   });
@@ -94,12 +126,12 @@
   //发送文件碎片
   rtc.on('send_file_chunk', function(sendId, socketId, percent, file){
     var p = document.getElementById("sf-" + sendId);
-    p.innerText = file.name + "文件正在发送: " + Math.ceil(percent) + "%";
+    p.innerHTML = file.name + "文件正在发送: " + Math.ceil(percent) + "%";
   });
   //接受文件碎片
   rtc.on('receive_file_chunk', function(sendId, socketId, fileName, percent){
     var p = document.getElementById("rf-" + sendId);
-    p.innerText = "正在接收" + fileName + "文件：" +  Math.ceil(percent) + "%";
+    p.innerHTML = "正在接收" + fileName + "文件：" +  Math.ceil(percent) + "%";
   });
   //接收到文件
   rtc.on('receive_file', function(sendId, socketId, name){
@@ -120,7 +152,7 @@
     if (window.confirm(socketId + "用户想要给你传送" + fileName + "文件，大小" + fileSize + "KB,是否接受？")) {
       rtc.sendFileAccept(sendId);
       p = document.createElement("p");
-      p.innerText = "准备接收" + fileName + "文件";
+      p.innerHTML = "准备接收" + fileName + "文件";
       p.id = "rf-" + sendId;
       files.appendChild(p);
     } else {
@@ -164,7 +196,7 @@
   //接收到文字信息
   rtc.on('data_channel_message', function(channel, socketId, message){
     var p = document.createElement("p");
-    p.innerText = socketId + ": " + message;
+    p.innerHTML = socketId + ": " + message;
     msgs.appendChild(p);
   });
   //连接WebSocket服务器
