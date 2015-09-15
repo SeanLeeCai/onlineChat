@@ -1,4 +1,4 @@
-<!DOCTYPE   html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
@@ -19,10 +19,10 @@
         left: 75%;
       }
       #msgIpt {
-        width: 61% !important;
+        width: 52% !important;
       }
       #sendBtn {
-        width: 21% ;
+        width: 30% ;
       }
     }
     @media screen and (min-width: 400px) and (max-width: 500px) {
@@ -55,9 +55,9 @@
       }
 
     }
-  @media screen and (min-width:1200px); {
-    #videos {
-      height: 100%; 
+  @media screen and (min-width:700px) {
+    video {
+      height: 100%;
     }
   }
   </style>
@@ -81,12 +81,8 @@
   var videos = document.getElementById("videos");
   var sendBtn = document.getElementById("sendBtn");
   var msgs = document.getElementById("msgs");
-  var sendFileBtn = document.getElementById("sendFileBtn");
-  var files = document.getElementById("files");
   var rtc = SkyRTC();
 
-  var height = document.documentElement.clientHeight;
-  var width = document.documentElement.clientWidth;
 
   /**********************************************************/
   function submitByEnter(){
@@ -129,69 +125,7 @@
     msgs.appendChild(p);
   };
 
-  /**********************************************************/
 
-  
-
-  //对方同意接收文件
-  rtc.on("send_file_accepted", function(sendId, socketId, file){
-    var p = document.getElementById("sf-" + sendId);
-    p.innerHTML = "对方接收" + file.name + "文件，等待发送";
-
-  });
-  //对方拒绝接收文件
-  rtc.on("send_file_refused", function(sendId, socketId, file){
-    var p = document.getElementById("sf-" + sendId);
-    p.innerHTML = "对方拒绝接收" + file.name + "文件";
-  });
-  //请求发送文件
-  rtc.on('send_file', function(sendId, socketId, file){
-    var p = document.createElement("p");
-    p.innerHTML = "请求发送" + file.name + "文件";
-    p.id = "sf-" + sendId;
-    files.appendChild(p);
-  });
-  //文件发送成功
-  rtc.on('sended_file', function(sendId, socketId, file){
-    var p = document.getElementById("sf-" + sendId);
-    p.parentNode.removeChild(p);
-  });
-  //发送文件碎片
-  rtc.on('send_file_chunk', function(sendId, socketId, percent, file){
-    var p = document.getElementById("sf-" + sendId);
-    p.innerHTML = file.name + "文件正在发送: " + Math.ceil(percent) + "%";
-  });
-  //接受文件碎片
-  rtc.on('receive_file_chunk', function(sendId, socketId, fileName, percent){
-    var p = document.getElementById("rf-" + sendId);
-    p.innerHTML = "正在接收" + fileName + "文件：" +  Math.ceil(percent) + "%";
-  });
-  //接收到文件
-  rtc.on('receive_file', function(sendId, socketId, name){
-    var p = document.getElementById("rf-" + sendId);
-    p.parentNode.removeChild(p);
-  });
-  //发送文件时出现错误
-  rtc.on('send_file_error', function(error){
-    console.log(error);
-  });
-  //接收文件时出现错误
-  rtc.on('receive_file_error', function(error){
-    console.log(error);
-  });
-  //接受到文件发送请求
-  rtc.on('receive_file_ask', function(sendId, socketId, fileName, fileSize){
-    var p;
-    if (window.confirm(socketId + "用户想要给你传送" + fileName + "文件，大小" + fileSize + "KB,是否接受？")) {
-      rtc.sendFileAccept(sendId);
-      p = document.createElement("p");
-      p.innerHTML = "准备接收" + fileName + "文件";
-      p.id = "rf-" + sendId;
-      files.appendChild(p);
-    } else {
-      rtc.sendFileRefuse(sendId);
-    }
-  });
   //成功创建WebSocket连接
   rtc.on("connected", function(socket) {
     //创建本地视频流
@@ -216,14 +150,7 @@
         id = "other-" + socketId;
     newVideo.setAttribute("class", "other");
     newVideo.setAttribute("autoplay", "autoplay");
-    newVideo.setAttribute("id", id);   
-    
-    
-    /*if(width>800) {
-      newVideo.style.height=height;
-    } else {
-      newVideo.style.height=height;
-    }*/
+    newVideo.setAttribute("id", id); 
     videos.appendChild(newVideo);
     var v = document.getElementById(id);
     rtc.attachStream(stream, id);

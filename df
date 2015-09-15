@@ -1,0 +1,84 @@
+[33mcommit a1dc9d65c76e3d6a241c19d56de1c05973088772[m
+Author: Robin <617822642@qq.com>
+Date:   Tue Sep 15 11:06:54 2015 +0800
+
+    css
+
+[33mcommit c25d5baec5af1a488b0c5e3118e9f7404d653e56[m
+Author: Robin <617822642@qq.com>
+Date:   Tue Sep 15 09:31:42 2015 +0800
+
+    文字自动向下滚动
+
+[33mcommit ef7fd6feb312102d7c66bfb20a29b5000af61939[m
+Merge: a3ce79d 3d18f5b
+Author: Robin <617822642@qq.com>
+Date:   Wed Sep 9 18:06:53 2015 +0800
+
+    Merge branch 'master' of github.com:Robin9907/onlineChat
+    
+    Conflicts:
+    	camera.html
+
+[33mcommit 3d18f5b41497774fe121be4ee7f4ac7fae427e06[m
+Author: Robin9907 <617822642@qq.com>
+Date:   Wed Sep 9 17:58:55 2015 +0800
+
+    rename camera.html
+
+[33mcommit a3ce79d0be3fac8c3c0e24a432dc7e021e1741cd[m
+Author: Robin <617822642@qq.com>
+Date:   Wed Sep 9 17:57:13 2015 +0800
+
+    edit html/css
+
+[33mcommit fc0c4d84a69a95317e10192ecc11ac6df079b82b[m
+Author: Robin <617822642@qq.com>
+Date:   Wed Sep 9 11:55:33 2015 +0800
+
+    fix file structure
+
+[33mcommit 8a56f1003ea661ab9e44a406162065cfcff99c8d[m
+Merge: d0ccbaa 5c53a2e
+Author: Robin9907 <617822642@qq.com>
+Date:   Wed Sep 9 10:07:02 2015 +0800
+
+    Merge pull request #1 from 2jproject/master
+    
+    new a project
+
+[33mcommit 5c53a2e63ee18fc9752e368a728d3fee68e5e1e7[m
+Merge: 9e74400 c67b7d4
+Author: Joe <347126391@qq.com>
+Date:   Wed Sep 9 09:37:11 2015 +0800
+
+    Merge branch 'master' of github.com:2jproject/onlineChat
+    
+    update
+
+[33mcommit 9e7440078d7a846526387eb5f9e0d5c498db876f[m
+Author: Joe <347126391@qq.com>
+Date:   Wed Sep 9 09:36:32 2015 +0800
+
+    do upstream
+
+[33mcommit c67b7d4c86e5056ceae80a9d76183525e0921817[m
+Merge: d0ccbaa 82d5608
+Author: JoeLucky <347126391@qq.com>
+Date:   Wed Sep 9 09:29:27 2015 +0800
+
+    Merge pull request #1 from JoeLucky/master
+    
+    初始化again
+
+[33mcommit 82d5608d2251e28ad16e0ac04b20229428cd110d[m
+Author: Joe <347126391@qq.com>
+Date:   Wed Sep 9 09:26:19 2015 +0800
+
+    初始化again
+
+[33mcommit d0ccbaa90c9b5d8f2c81035ed69e65e42aff1001[m
+Author: Joe <347126391@qq.com>
+Date:   Mon Sep 7 15:51:17 2015 +0800
+
+    init

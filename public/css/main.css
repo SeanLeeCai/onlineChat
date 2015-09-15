@@ -18,6 +18,7 @@ input {
 	top: 0;
 	bottom: 0;
 	width: 70%;	
+	text-align: center;
 }
 
 #videos video {
@@ -52,6 +53,7 @@ input {
 	font-family: "Microsoft Yahei";
 	width: 18%;
 	margin: 0;
+	float: left;
 }
 
 #chat .msgs {
