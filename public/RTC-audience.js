@@ -180,7 +180,7 @@ var SkyRTC = function() {
 
         this.on('ready', function() {
             that.createPeerConnections();
-            // that.addStreams();
+            that.addStreams();
             that.addDataChannels();
             that.sendOffers();
         });
@@ -199,8 +199,7 @@ var SkyRTC = function() {
 
         if (getUserMedia) {
             this.numStreams++;
-            getUserMedia.call(navigator, options, 
-                function(stream) {
+            getUserMedia.call(navigator, options, function(stream) {
                     that.localMediaStream = stream;
                     that.initializedStreams++;
                     that.emit("stream_created", stream);
@@ -233,9 +232,9 @@ var SkyRTC = function() {
             element.mozSrcObject = stream;
             element.play();
         } else {
-            element.src = URL.createObjectURL(stream);
+            element.src = webkitURL.createObjectURL(stream);
         }
-        element.src = URL.createObjectURL(stream);
+        element.src = webkitURL.createObjectURL(stream);
     };
 
 

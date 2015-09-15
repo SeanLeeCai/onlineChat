@@ -5,6 +5,10 @@ html, body {
 	padding: 0;
 	background-color: #f0f0f0;
 }
+input {
+	border: 1px solid #f60;
+	font-family: "Microsoft Yahei";
+}
 
 #videos {
 	position: absolute;
@@ -23,19 +27,21 @@ html, body {
 	position: absolute;
 	left: 70%;
 	top: 0;
-	bottom: 0;
+	bottom: 5%;
 	right: 0;
 	overflow: auto;
+	border-left: 1px solid #f60;
+
 }
 #chat .msgIpt, #chat .fileIpt{
-	position: absolute;
-	left: 0;
-	width: 80%;
+	position: fixed;
+	left: 70%;
+	width: 20%;
 }
 #chat .sendBtn, #chat .sendFileBtn {
-	position: absolute;
-	left: 80%;
-	width: 20%;
+	position: fixed;
+	left: 90%;
+	width: 10%;
 }
 #chat .msgIpt,#chat .sendBtn {
 	bottom: 0;
@@ -44,8 +50,16 @@ html, body {
 	bottom: 30px;
 }
 
+#sendBtn {
+	background-color: #f60;
+	color: white;
+	border: 0;
+	font-family: "Microsoft Yahei";
+}
+
 #chat .msgs {
 	padding: 5%;
+	font-family: "Microsoft Yahei";
 }
 #chat .msgs p{
 	margin: 0.3em 0;
