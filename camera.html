@@ -1,180 +1,195 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="/main.css">
-  <title>SkyRTC聊天室Demo</title>
-  <style type="text/css">
-@media screen and (min-width: 500px) and (max-width: 700px) {
-      body,html {
-        height: 100%;
-        margin:0;
-      }
-      #videos video {
-        width: auto;
-      }
-      #chat {
-        left: 75%;
-      }
-      #msgIpt {
-        width: 52% !important;
-      }
-      #sendBtn {
-        width: 30% ;
-      }
-    }
-    @media screen and (min-width: 400px) and (max-width: 500px) {
-      body,html {
-        height: 100%;
-        margin:0;
-      }
-      #videos video {
-        width: auto;
-        height: 100%;
-      }
-      #chat {
-        display: none;
-      }
-    }
-  @media screen and (max-width: 400px) {
-      body,html {
-        margin: 0;
-        padding: 0;
-      }
-      #videos video {
-        width: 100%;
-      }
-      #chat {
-        display: none;
-      }
-      #videos {
-        position: static;
-        width: 100%;
-      }
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/main.css">
+    <title>手播——摄影间</title>
+    <style type="text/css">
+        @media screen and (min-width: 500px) and (max-width: 700px) {
+            body, html {
+                height: 100%;
+                margin: 0;
+            }
 
-    }
-  @media screen and (min-width:1200px) {
-    video {
-      height: 100%;
-    }
-  }
-  </style>
+            #videos video {
+                width: auto;
+            }
+
+            #chat {
+                left: 75%;
+            }
+
+            #msgIpt {
+                width: 52% !important;
+            }
+
+            #sendBtn {
+                width: 30%;
+            }
+        }
+
+        @media screen and (min-width: 400px) and (max-width: 500px) {
+            body, html {
+                height: 100%;
+                margin: 0;
+            }
+
+            #videos video {
+                width: auto;
+                height: 100%;
+            }
+
+            #chat {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            body, html {
+                margin: 0;
+                padding: 0;
+            }
+
+            #videos video {
+                width: 100%;
+            }
+
+            #chat {
+                display: none;
+            }
+
+            #videos {
+                position: static;
+                width: 100%;
+            }
+
+        }
+
+        @media screen and (min-width: 1200px) {
+            video {
+                height: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div id="chat" onkeydown="submitByEnter();">
+<div id="chat" onkeydown="submitByEnter();">
     <div class="msgs" id="msgs"></div>
     <div id="sendMsg">
-      <input type="text" id="msgIpt" class="msgIpt">
-      <button id="sendBtn" class="sendBtn">发送</button>
+        <input type="text" id="msgIpt" class="msgIpt">
+        <button id="sendBtn" class="sendBtn">发送</button>
     </div>
-  </div>
-  <div id="videos">
+</div>
+<div id="videos">
     <video id="me" autoplay onclick="resize();"></video>
-  </div>
-  <div id="files">
-  </div>
+</div>
+<div id="files">
+</div>
 </body>
-<script type="text/javascript" src="/SkyRTC-client.js"></script>
+<script type="text/javascript" src="/RTC-camera.js"></script>
 <script type="text/javascript">
 
-  var videos = document.getElementById("videos");
-  var sendBtn = document.getElementById("sendBtn");
-  var msgs = document.getElementById("msgs");
-  var rtc = SkyRTC();
+    var videos = document.getElementById("videos");
+    var sendBtn = document.getElementById("sendBtn");
+    var msgs = document.getElementById("msgs");
+    var rtc = SkyRTC();
 
-  /**********************************************************/
-  sendBtn.onclick = function(event){
-    var msgIpt = document.getElementById("msgIpt"),
-        msg = msgIpt.value,
-        p = document.createElement("p");
-    p.innerHTML = "me: " + msg;
-    //广播消息
-    rtc.broadcast(msg);
-    msgIpt.value = "";
-    msgs.appendChild(p);
-  };
-
-  function submitByEnter(){
-      var event = window.event || arguments.callee.caller.arguments[0];
-      if(event.keyCode == 13) {
+    /**********************************************************/
+    sendBtn.onclick = function (event) {
         var msgIpt = document.getElementById("msgIpt"),
-            msg = msgIpt.value,
-            p = document.createElement("p");
-        if (!msg) {
-          alert("亲，说点什么吧！");
-          return;
-        };
+                msg = msgIpt.value,
+                p = document.createElement("p");
         p.innerHTML = "me: " + msg;
-        msgs.appendChild(p);
         //广播消息
-        if(document.getElementById("chat").scrollHeight>document.body.clientHeight){
-          document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
+        rtc.broadcast(msg);
+        msgIpt.value = "";
+        msgs.appendChild(p);
+    };
+
+    function submitByEnter() {
+        var event = window.event || arguments.callee.caller.arguments[0];
+        if (event.keyCode == 13) {
+            var msgIpt = document.getElementById("msgIpt"),
+                    msg = msgIpt.value,
+                    p = document.createElement("p");
+            if (!msg) {
+                alert("亲，说点什么吧！");
+                return;
+            }
+            ;
+            p.innerHTML = "me: " + msg;
+            msgs.appendChild(p);
+            //广播消息
+            if (document.getElementById("chat").scrollHeight > document.body.clientHeight) {
+                document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
+            }
+            rtc.broadcast(msg);
+            msgIpt.value = "";
+
+        }
+        ;
+    }
+    sendBtn.onclick = function (event) {
+        var msgIpt = document.getElementById("msgIpt"),
+                msg = msgIpt.value,
+                p = document.createElement("p");
+        if (!msg) {
+            alert("亲，说点什么吧！");
+            return;
+        }
+        ;
+        p.innerHTML = "me: " + msg;
+        //广播消息
+        if (document.getElementById("chat").scrollHeight > document.body.clientHeight) {
+            document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
         }
         rtc.broadcast(msg);
         msgIpt.value = "";
-        
-      };
-  }
-  sendBtn.onclick = function(event){
-    var msgIpt = document.getElementById("msgIpt"),
-        msg = msgIpt.value,
-        p = document.createElement("p");
-    if (!msg) {
-          alert("亲，说点什么吧！");
-          return;
-        };
-    p.innerHTML = "me: " + msg;
-    //广播消息
-    if(document.getElementById("chat").scrollHeight>document.body.clientHeight){
-      document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
-    }
-    rtc.broadcast(msg);
-    msgIpt.value = "";
-    msgs.appendChild(p);
-  };
+        msgs.appendChild(p);
+    };
 
 
-  //成功创建WebSocket连接
-  rtc.on("connected", function(socket) {
-    //创建本地视频流
-    rtc.createStream({
-      "video": true,
-      "audio": true
+    //成功创建WebSocket连接
+    rtc.on("connected", function (socket) {
+        //创建本地视频流
+        rtc.createStream({
+            "video": true,
+            "audio": true
+        });
     });
-  });
-  //创建本地视频流成功
-  rtc.on("stream_created", function(stream) {
-    document.getElementById('me').src = URL.createObjectURL(stream);
-    document.getElementById('me').play();
-  });
-  //创建本地视频流失败
-  rtc.on("stream_create_error", function() {
-    alert("create stream failed!");
-  });
-  //接收到文字信息
-  rtc.on('data_channel_message', function(channel, socketId, message){
-    var p = document.createElement("p");
-    p.innerHTML = message;
-    var t='#';
-    for(j=0;j<6;j++) {
-      t = t+ socketId.charAt(j);
-    }  
-    p.setAttribute("style","color:"+t);
-    msgs.appendChild(p);
-  });
-  //连接WebSocket服务器
-  rtc.connect("ws:" + window.location.href.substring(window.location.protocol.length).split('#')[0], window.location.hash.slice(1));
+    //创建本地视频流成功
+    rtc.on("stream_created", function (stream) {
+        document.getElementById('me').src = URL.createObjectURL(stream);
+        document.getElementById('me').play();
+    });
+    //创建本地视频流失败
+    rtc.on("stream_create_error", function () {
+        alert("create stream failed!");
+    });
+    //接收到文字信息
+    rtc.on('data_channel_message', function (channel, socketId, message) {
+        var p = document.createElement("p");
+        p.innerHTML = message;
+        var t = '#';
+        for (j = 0; j < 6; j++) {
+            t = t + socketId.charAt(j);
+        }
+        p.setAttribute("style", "color:" + t);
+        msgs.appendChild(p);
+    });
+    //连接WebSocket服务器
+    rtc.connect("ws:" + window.location.href.substring(window.location.protocol.length).split('#')[0], window.location.hash.slice(1));
 
-  //重置视频大小
-  function resize() {
-    width = document.getElementById('me').style.width;
-    chat = document.getElementById('chat');
-    if(width=='50%') {
-      document.getElementById('me').style.width='100%';
-    } else {
-    document.getElementById('me').style.width='50%';  
+    //重置视频大小
+    function resize() {
+        width = document.getElementById('me').style.width;
+        chat = document.getElementById('chat');
+        if (width == '50%') {
+            document.getElementById('me').style.width = '100%';
+        } else {
+            document.getElementById('me').style.width = '50%';
+        }
     }
-  }
 </script>
 </html>
